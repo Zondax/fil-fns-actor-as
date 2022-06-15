@@ -1,3 +1,4 @@
 node_modules
 testing/target
 fil-fns-actor.wasm
+build

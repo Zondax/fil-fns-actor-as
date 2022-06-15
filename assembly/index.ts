@@ -26,7 +26,7 @@ export function invoke(_: u32): u32 {
 function constructor(): void {
   if( !isConstructorCaller() ) return;
 
-  const emptyMap = new Map<String, u8>()
+  const emptyMap = new Map<String, Array<u8>>()
   const state = new State(0, emptyMap)
   state.save()
 
