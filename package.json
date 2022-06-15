@@ -1,0 +1,15 @@
+{
+  "name": "fil-fns-as",
+  "version": "0.0.1",
+  "description": "Filecoin Naming System Actor",
+  "author": "rllola <rllola80@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "asbuild": "asc assembly/index.ts --target release --use abort="
+  },
+  "dependencies": {
+    "@zondax/assemblyscript-cbor": "^0.3.1",
+    "@zondax/fvm-as-sdk": "^0.2.0",
+    "assemblyscript": "^0.20.11"
+  }
+}
