@@ -5,9 +5,9 @@ import {CBOREncoder} from "@zondax/assemblyscript-cbor/assembly";
 
 export class State extends BaseState {
     count: u64
-    nameRegister: Map<string, Array<u8>>
+    nameRegister: Map<string, u64>
 
-    constructor(count: u64, nameRegister: Map<string, Array<u8>>) {
+    constructor(count: u64, nameRegister: Map<string, u64>) {
         super()
         this.count = count
         this.nameRegister = nameRegister
@@ -27,9 +27,9 @@ export class State extends BaseState {
             const keys = this.nameRegister.keys()
             for (let i = 0; i < this.nameRegister.size; i++) {
                 encoder.addKey(keys[i])
-                encoder.addArrayU8(values[i])
+                encoder.addUint64(values[i])
             }
-        }
+        } 
 
         return encoder.serialize()
     }
@@ -37,7 +37,7 @@ export class State extends BaseState {
     // This function should only indicate how to convert from a generic object model to this state class
     protected parse(rawState: Value): State {
         let counter:i64 = 0
-        let nameRegister:Map<String, Array<u8>> = new Map<String, Array<u8>>()
+        let nameRegister:Map<String, u64> = new Map<String, u64>()
         if(rawState.isObj){
             // Here we cast as object as we know that is what we saved before
             const state = rawState as Obj
@@ -51,7 +51,7 @@ export class State extends BaseState {
     }
 
     static load():State{
-        const emptyMap = new Map<String, Array<u8>>()
+        const emptyMap = new Map<String, u64>()
         return new State(0, emptyMap).load() as State
     }
 }

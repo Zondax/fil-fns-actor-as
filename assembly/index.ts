@@ -1,9 +1,10 @@
-import {methodNumber, usrUnhandledMsg, create} from "@zondax/fvm-as-sdk/assembly/wrappers";
-import {NO_DATA_BLOCK_ID, DAG_CBOR} from "@zondax/fvm-as-sdk/assembly/env";
+import {methodNumber, caller, valueReceived, usrUnhandledMsg, create, genericAbort, paramsRaw} from "@zondax/fvm-as-sdk/assembly/wrappers";
+import {NO_DATA_BLOCK_ID, DAG_CBOR, USR_UNSPECIFIED} from "@zondax/fvm-as-sdk/assembly/env";
 import {isConstructorCaller} from "@zondax/fvm-as-sdk/assembly/helpers";
 import {State} from "./state";
+import {RegisterParams} from "./params"
 
-export function invoke(_: u32): u32 {
+export function invoke(paramsID: u32): u32 {
   const methodNum = methodNumber()
 
   switch (u32(methodNum)) {
@@ -12,7 +13,9 @@ export function invoke(_: u32): u32 {
       break
 
     case 2:
-      register()
+      const rawParams = paramsRaw(paramsID)
+      const params = RegisterParams.fromRaw(rawParams.raw)
+      register(params)
       break
 
     default:
@@ -26,17 +29,19 @@ export function invoke(_: u32): u32 {
 function constructor(): void {
   if( !isConstructorCaller() ) return;
 
-  const emptyMap = new Map<String, Array<u8>>()
+  const emptyMap = new Map<String, u64>()
   const state = new State(0, emptyMap)
   state.save()
 
   return;
 }
 
-// `Register` associate a domain name to a user address
-function register(): void {
+// `register` associate a domain name to a user address
+function register(params: RegisterParams): void {
+  const address = caller()
   const state = State.load()
-  state.count += 1 
+  state.count += 1
+  state.nameRegister.set(params.name, address)
   state.save()
 
   return
