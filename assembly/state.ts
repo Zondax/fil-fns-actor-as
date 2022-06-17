@@ -1,7 +1,9 @@
 import {BaseState} from "@zondax/fvm-as-sdk/assembly/utils/state";
 import {Value, Obj, Integer} from "@zondax/assemblyscript-cbor/assembly/types";
 import {Cid} from "@zondax/fvm-as-sdk/assembly/env/types";
+import {USR_ILLEGAL_ARGUMENT} from "@zondax/fvm-as-sdk/assembly/env";
 import {CBOREncoder} from "@zondax/assemblyscript-cbor/assembly";
+import { genericAbort } from "@zondax/fvm-as-sdk/assembly/wrappers";
 
 export class State extends BaseState {
     count: u64
@@ -45,6 +47,23 @@ export class State extends BaseState {
             // Get counter
             if(state.has("counter"))
                 counter = (state.get("counter") as Integer).valueOf()
+
+            // Get name register
+            if(state.has("name_register")) {
+                let tmp:Map<String, Value> = new Map<String, Value>()
+                tmp = (state.get("name_register") as Obj).valueOf()
+                
+                const keys = tmp.keys()
+                for (let i = 0; i < keys.length; i++) {
+                    const key  = keys[i]
+                    const value = tmp.get(key)
+                    if (value.isUndefined) {
+                        genericAbort(USR_ILLEGAL_ARGUMENT, "failed to parse names")
+                    }
+                    const addrID = (value as Integer).valueOf()
+                    nameRegister.set(key, addrID as u64)
+                }
+            }
         }
 
         return new State(counter, nameRegister)

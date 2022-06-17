@@ -6,6 +6,7 @@ import {Value, Arr, Str} from "@zondax/assemblyscript-cbor/assembly/types"
 export class RegisterParams {
     constructor(public name: String){}
 
+    // decode cbor
     static fromRaw(raw: Uint8Array): RegisterParams{
         const decoder = new CBORDecoder(raw.buffer)
         const rawState: Value = decoder.parse()
