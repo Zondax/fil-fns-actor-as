@@ -7,12 +7,18 @@
   resolved "https://verdaccio.zondax.net/@zondax%2fassemblyscript-cbor/-/assemblyscript-cbor-0.3.1.tgz#ef0f2382f667e758df8ea2604e87894e33f388fb"
   integrity sha512-zj1d70d8eKZG/drSPDaQC982zCWSM2I0oLEWYK1LQ5g6bnKPdI33cniqnuzomtkGPRvKqGPx+kClfhDMkXSYDQ==
 
-"@zondax/fvm-as-sdk@^0.2.0":
-  version "0.2.0"
-  resolved "https://verdaccio.zondax.net/@zondax%2ffvm-as-sdk/-/fvm-as-sdk-0.2.0.tgz#e003285285a5ea493fce6aa97713b4e4c8358b86"
-  integrity sha512-UxoFrz3ibff7PPITqLM7TPlpmbJVXYyw8hCQacCm/wEecvMwMwtyyj168sQZJxyuh8FqE2SIcyNUW/3s/Q+zww==
+"@zondax/fvm-as-sdk@^0.4.0":
+  version "0.4.0"
+  resolved "https://verdaccio.zondax.net/@zondax%2ffvm-as-sdk/-/fvm-as-sdk-0.4.0.tgz#c306d82fdf4fd3684e0e54e17c45d2635fae5080"
+  integrity sha512-e6URepWjezqzLlJ0R3aCTUeHHBvcvmgqQm4Qjmc4Xglrln/sdz9oSdvXWKA2ZP3/ZDZoj9AHA3dCHvQhrWcwgg==
   dependencies:
     "@zondax/assemblyscript-cbor" "^0.3.1"
+    as-bigint "^0.5.3"
+
+as-bigint@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/as-bigint/-/as-bigint-0.5.3.tgz#a0647d0b7ce835077aca33115e71eb26a83df8be"
+  integrity sha512-tg9iTO/vPeovOM5CSk1WxYcsfBd/cd3twhBW5PrpcGUfiSEXlPB69eOxFKvSbZnpuDxBAyQ4YBgEkfnYL89Czw==
 
 assemblyscript@^0.20.11:
   version "0.20.11"
