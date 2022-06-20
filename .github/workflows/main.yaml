@@ -1,0 +1,50 @@
+name: "Checks"
+on:
+  - pull_request
+
+jobs:
+  build:
+    name: "Build FNS actor"
+    needs: ["build"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.0'
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+      - name: Install yarn
+        run: npm install -g yarn
+      - name: Install deps
+        run: make deps
+      - name: Build WASM file
+        run: make build
+      - name: Cache/restore binaries
+        uses: actions/cache@v1
+        with:
+          path: ./build
+          key: ${{ runner.os }}-${{ github.run_id }}
+
+  diff:
+    name: "Check diff"
+    needs: ["build"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache/restore binaries
+        uses: actions/cache@v1
+        with:
+          path: ./build
+          key: ${{ runner.os }}-${{ github.run_id }}
+      - uses: actions/download-artifact@v3
+        with:
+          name: fil-fns-actor.wasm
+      - name: Display structure of downloaded files
+        run: ls -R
