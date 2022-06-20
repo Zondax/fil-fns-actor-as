@@ -9,4 +9,4 @@ build:
 test:
 	cd testing && cargo r
 
-.PHONY: deps build
+.PHONY: deps build test
