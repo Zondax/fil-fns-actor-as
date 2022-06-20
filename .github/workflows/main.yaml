@@ -34,9 +34,12 @@ jobs:
       - name: Cache/restore binaries
         uses: actions/cache@v1
         with:
-          path: ./build
+          path: ./fil-fns-actor.wasm
           key: ${{ runner.os }}-${{ github.run_id }}
-
+      - uses: actions/upload-artifact@v3
+        with:
+          name: fil-fns-actor.wasm
+          path: ./fil-fns-actor.wasm
   diff:
     name: "Check diff"
     needs: ["build"]
