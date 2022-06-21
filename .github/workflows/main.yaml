@@ -38,8 +38,8 @@ jobs:
           key: ${{ runner.os }}-${{ github.run_id }}
       - uses: actions/upload-artifact@v3
         with:
-          name: fil-fns-actor.wasm
-          path: ./fil-fns-actor.wasm
+          name: fil-fns-actor-${{ github.sha }}.wasm
+
   diff:
     name: "Check diff"
     needs: ["build"]
@@ -55,5 +55,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: fil-fns-actor.wasm
+          path: tmp/
       - name: Display structure of downloaded files
         run: ls -R
+        working-directory: tmp/
