@@ -58,8 +58,10 @@ jobs:
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
           workflow: main.yaml
+          workflow_conclusion: completed
           pr: ${{github.event.pull_request.number}}
           event: push
           name: fil-fns-actor-previous.wasm
+        continue-on-error: true
       - name: Display structure of downloaded files
         run: ls -l
