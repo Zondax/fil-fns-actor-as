@@ -31,11 +31,6 @@ jobs:
         run: make deps
       - name: Build WASM file
         run: make build
-      - name: Cache/restore binaries
-        uses: actions/cache@v1
-        with:
-          path: ./fil-fns-actor.wasm
-          key: ${{ runner.os }}-${{ github.run_id }}
       - uses: actions/upload-artifact@v3
         with:
           name: fil-fns-actor-previous.wasm
@@ -48,16 +43,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Cache/restore binaries
-        uses: actions/cache@v1
+      - uses: actions/download-artifact@v3
         with:
-          path: ./build
-          key: ${{ runner.os }}-${{ github.run_id }}
-      - name: Download artifact
+          name: fil-fns-actor-previous.wasm
+          path: ./fil-fns-actor.wasm
+      - name: Download artifact from previous build
         uses: dawidd6/action-download-artifact@v2
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
           workflow: main.yaml
+          pr: ${{github.event.pull_request.number}}
         continue-on-error: true
-      - name: Display structure of downloaded files
-        run: ls -l
+      - name: Compared file size
+        run: |
+          ls -l
+          diff <(ls -l ./fil-fns-actor.wasm | awk '{print $5}') <(ls -l fil-fns-actor-previous.wasm| awk '{print $5}')
