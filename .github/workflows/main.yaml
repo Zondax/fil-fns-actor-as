@@ -62,4 +62,4 @@ jobs:
           event: push
           name: fil-fns-actor-previous.wasm
       - name: Display structure of downloaded files
-        run: ls -R
+        run: ls -l
