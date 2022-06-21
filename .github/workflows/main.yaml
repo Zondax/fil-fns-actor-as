@@ -55,6 +55,7 @@ jobs:
           check_artifacts: false
         continue-on-error: true
       - name: Compared file size
+        if: success()
         run: |
           ls -l
           FILE_PREV_SIZE=$(stat -c%s fil-fns-actor-previous.wasm)
@@ -62,8 +63,8 @@ jobs:
           echo "delta_size=$(expr $FILE_SIZE - $FILE_PREV_SIZE)" >> $GITHUB_ENV
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v1
+        if: success()
         with:
           message: |
-            Print report here
-            Size difference : `${{env.delta_size}}`
+            Size difference : ${{env.delta_size}} bytes
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
