@@ -1,0 +1,74 @@
+name: "Checks"
+on:
+  pull_request:
+  push:
+    branches: main
+
+jobs:
+  build:
+    name: "Build FNS actor"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.0'
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+      - name: Install yarn
+        run: npm install -g yarn
+      - name: Set npmrc
+        run: |
+          yarn config set @zondax:registry https://verdaccio.zondax.net/
+          npm config set //verdaccio.zondax.net/:_authToken "$VERDACCIO_TOKEN"
+          npm config set //verdaccio.zondax.net/:always-auth true
+        env:
+          VERDACCIO_TOKEN: ${{ secrets.VERDACCIO_READ_TOKEN }}
+      - name: Install deps
+        run: make deps
+      - name: Build WASM file
+        run: make build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: fil-fns-actor-previous.wasm
+          path: ./fil-fns-actor.wasm
+
+  diff:
+    name: "Check diff"
+    needs: ["build"]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/download-artifact@v3
+        with:
+          name: fil-fns-actor-previous.wasm
+          path: ./fil-fns-actor.wasm
+      - name: Download artifact from previous build
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: main.yaml
+          check_artifacts: false
+          branch: main
+        continue-on-error: true
+      - name: Compared file size
+        if: success()
+        run: |
+          ls -l
+          FILE_PREV_SIZE=$(stat -c%s fil-fns-actor-previous.wasm)
+          FILE_SIZE=$(stat -c%s fil-fns-actor.wasm)
+          echo "delta_size=$(expr $FILE_SIZE - $FILE_PREV_SIZE)" >> $GITHUB_ENV
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v1
+        if: success()
+        with:
+          message: |
+            Size difference : ${{env.delta_size}} bytes
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
