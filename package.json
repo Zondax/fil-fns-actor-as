@@ -4,7 +4,7 @@
   "author": "Zondax AG",
   "license": "Apache-2.0",
   "scripts": {
-    "asbuild": "asc assembly/index.ts --target release --use abort="
+    "asbuild": "asc assembly/index.ts --target release --use abort= --transform @zondax/fvm-as-bindgen"
   },
   "dependencies": {
     "@zondax/assemblyscript-cbor": "^0.3.1",
@@ -17,6 +17,7 @@
   },
   "private": true,
   "devDependencies": {
+    "@zondax/fvm-as-bindgen": "^0.5.0",
     "assemblyscript": "^0.20.11"
   }
 }

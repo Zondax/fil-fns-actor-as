@@ -35,7 +35,7 @@ jobs:
         run: make build
       - uses: actions/upload-artifact@v3
         with:
-          name: fil-fns-actor-previous.wasm
+          name: fil-fns-actor-previous
           path: ./fil-fns-actor.wasm
 
   diff:
@@ -48,8 +48,8 @@ jobs:
         uses: actions/checkout@v2
       - uses: actions/download-artifact@v3
         with:
-          name: fil-fns-actor-previous.wasm
-          path: ./fil-fns-actor.wasm
+          name: fil-fns-actor-previous
+          path: ./fil-fns-actor
       - name: Download artifact from previous build
         uses: dawidd6/action-download-artifact@v2
         with:
@@ -62,8 +62,8 @@ jobs:
         if: success()
         run: |
           ls -l
-          FILE_PREV_SIZE=$(stat -c%s fil-fns-actor-previous.wasm)
-          FILE_SIZE=$(stat -c%s fil-fns-actor.wasm)
+          FILE_PREV_SIZE=$(stat -c%s fil-fns-actor-previous/fil-fns-actor.wasm)
+          FILE_SIZE=$(stat -c%s fil-fns-actor/fil-fns-actor.wasm)
           echo "delta_size=$(expr $FILE_SIZE - $FILE_PREV_SIZE)" >> $GITHUB_ENV
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v1
