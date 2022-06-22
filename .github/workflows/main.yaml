@@ -62,7 +62,7 @@ jobs:
         if: success()
         run: |
           ls -l
-          FILE_PREV_SIZE=$(stat -c%s fil-fns-actor-previous.wasm/fil-fns-actor.wasm)
+          FILE_PREV_SIZE=$(stat -c%s fil-fns-actor-previous/fil-fns-actor.wasm)
           FILE_SIZE=$(stat -c%s fil-fns-actor/fil-fns-actor.wasm)
           echo "delta_size=$(expr $FILE_SIZE - $FILE_PREV_SIZE)" >> $GITHUB_ENV
       - name: Comment PR
