@@ -1,6 +1,5 @@
 // @filecoinfile
 import {ParamsRawResult} from "@zondax/fvm-as-sdk/assembly/env/types"
-import {isConstructorCaller} from "@zondax/fvm-as-sdk/assembly/helpers"
 import {caller} from "@zondax/fvm-as-sdk/assembly/wrappers"
 import {State} from "./state"
 import {RegisterParams} from "./params"
@@ -9,8 +8,6 @@ import {RegisterParams} from "./params"
 @constructor
 // Function executed on create actor
 function constructor(rawParams: ParamsRawResult): void {
-  if( !isConstructorCaller() ) return;
-
   const emptyMap = new Map<String, u64>()
   const state = new State(0, emptyMap)
   state.save()
