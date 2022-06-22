@@ -7,10 +7,17 @@
   resolved "https://verdaccio.zondax.net/@zondax%2fassemblyscript-cbor/-/assemblyscript-cbor-0.3.1.tgz#ef0f2382f667e758df8ea2604e87894e33f388fb"
   integrity sha512-zj1d70d8eKZG/drSPDaQC982zCWSM2I0oLEWYK1LQ5g6bnKPdI33cniqnuzomtkGPRvKqGPx+kClfhDMkXSYDQ==
 
+"@zondax/fvm-as-bindgen@^0.5.0":
+  version "0.5.0"
+  resolved "https://verdaccio.zondax.net/@zondax%2ffvm-as-bindgen/-/fvm-as-bindgen-0.5.0.tgz#40f543a741647f5898020392ba17cee1bb71d285"
+  integrity sha512-Tx9PBxYg/BVyD5PweE0kbJxZ7Hx7yh+kiZj0E8LBdPwNXt+uHuaW3bcuSKwYdH4bWK47a98okgSTfIKU1W45/g==
+  dependencies:
+    assemblyscript "^0.20.11"
+
 "@zondax/fvm-as-sdk@^0.4.0":
-  version "0.4.0"
-  resolved "https://verdaccio.zondax.net/@zondax%2ffvm-as-sdk/-/fvm-as-sdk-0.4.0.tgz#c306d82fdf4fd3684e0e54e17c45d2635fae5080"
-  integrity sha512-e6URepWjezqzLlJ0R3aCTUeHHBvcvmgqQm4Qjmc4Xglrln/sdz9oSdvXWKA2ZP3/ZDZoj9AHA3dCHvQhrWcwgg==
+  version "0.4.1"
+  resolved "https://verdaccio.zondax.net/@zondax%2ffvm-as-sdk/-/fvm-as-sdk-0.4.1.tgz#b35b6b4d770247d507327ab9ff4f98ee191362af"
+  integrity sha512-QV9SDuUyRY/xn8L2wKO3theQTNPk0QbYKYfuV989vKRXfnMElK8yHjK3d42dMFlxLOGa5RkjmhJHPSh9cKaDEQ==
   dependencies:
     "@zondax/assemblyscript-cbor" "^0.3.1"
     as-bigint "^0.5.3"
