@@ -1,5 +1,5 @@
 import {BaseState} from "@zondax/fvm-as-sdk/assembly/utils/state";
-import {Value, Obj, Integer} from "@zondax/assemblyscript-cbor/assembly/types";
+import {Value, Obj, Integer, Arr} from "@zondax/assemblyscript-cbor/assembly/types";
 import {Cid} from "@zondax/fvm-as-sdk/assembly/env/types";
 import {USR_ILLEGAL_ARGUMENT} from "@zondax/fvm-as-sdk/assembly/env";
 import {CBOREncoder} from "@zondax/assemblyscript-cbor/assembly";
@@ -18,10 +18,8 @@ export class State extends BaseState {
     // This function should only indicate how to serialize the store into CBOR
     protected encode(): ArrayBuffer {
         const encoder = new CBOREncoder()
-        encoder.addObject(2)
-        encoder.addKey("counter")
+        encoder.addArray(2)
         encoder.addUint64(this.count)
-        encoder.addKey("name_register")
 
         encoder.addObject(this.nameRegister.size)
         if (this.nameRegister.size > 0) {
@@ -40,18 +38,20 @@ export class State extends BaseState {
     protected parse(rawState: Value): State {
         let counter:i64 = 0
         let nameRegister:Map<String, u64> = new Map<String, u64>()
-        if(rawState.isObj){
+        if(rawState.isArr){
             // Here we cast as object as we know that is what we saved before
-            const state = rawState as Obj
+            const state = rawState as Arr
 
             // Get counter
-            if(state.has("counter"))
-                counter = (state.get("counter") as Integer).valueOf()
+            const counterValue = state.pop()
+            if(counterValue.isInteger)
+                counter = (counterValue as Integer).valueOf()
 
             // Get name register
-            if(state.has("name_register")) {
+            const nameRegisterValue = state.pop()
+            if(nameRegisterValue.isObj) {
                 let tmp:Map<String, Value> = new Map<String, Value>()
-                tmp = (state.get("name_register") as Obj).valueOf()
+                tmp = (nameRegisterValue as Obj).valueOf()
                 
                 const keys = tmp.keys()
                 for (let i = 0; i < keys.length; i++) {
