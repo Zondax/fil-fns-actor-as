@@ -1,8 +1,9 @@
 // @filecoinfile
 import {ParamsRawResult} from "@zondax/fvm-as-sdk/assembly/env/types"
-import {caller} from "@zondax/fvm-as-sdk/assembly/wrappers"
+import {caller, genericAbort, resolve_address} from "@zondax/fvm-as-sdk/assembly/wrappers"
+import {USR_ILLEGAL_ARGUMENT} from "@zondax/fvm-as-sdk/assembly/env"
 import {State} from "./state"
-import {RegisterParams} from "./params"
+import {RegisterParams, TransferParams} from "./params"
 
 // @ts-ignore
 @constructor
@@ -18,17 +19,43 @@ function constructor(rawParams: ParamsRawResult): void {
 // @ts-ignore
 @export_method(2)
 // `register` associate a domain name to a user address
-function register(rawParams: ParamsRawResult): Uint8Array {
+function register(rawParams: ParamsRawResult): void {
   const params = RegisterParams.fromRaw(rawParams.raw)
 
   const address = caller()
   const state = State.load()
+
+  if (state.nameRegister.has(params.name)) {
+    genericAbort(USR_ILLEGAL_ARGUMENT, `"${params.name}" already registered`)
+    return
+  }
   state.count += 1
   state.nameRegister.set(params.name, address)
   state.save()
 
-  const message = "Success"
-  const msg = Uint8Array.wrap(String.UTF8.encode(message))
+  return
+}
 
-  return msg
+// @ts-ignore
+@export_method(3)
+// `transfer` transfer a domain to a new address
+function transfer(rawParams: ParamsRawResult): void {
+  const params = TransferParams.fromRaw(rawParams.raw)
+
+  const callerAddr = caller()
+  const state = State.load()
+
+  const owner = state.nameRegister.get(params.name)
+
+  if (callerAddr != owner) {
+    genericAbort(USR_ILLEGAL_ARGUMENT, `you are not the owner of "${params.name}". Owner is ${owner} `)
+  }
+
+  // resolve new owner address
+  const newOwner = resolve_address(params.addr)
+
+  state.nameRegister.set(params.name, newOwner)
+  state.save()
+
+  return
 }

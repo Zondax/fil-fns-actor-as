@@ -5,10 +5,11 @@ use fvm_shared::version::NetworkVersion;
 use fvm::executor::{ApplyKind, Executor};
 use fvm_ipld_blockstore::MemoryBlockstore;
 use fvm_ipld_encoding::tuple::*;
+use fvm_ipld_encoding::RawBytes;
 use fvm_shared::address::Address;
 use fvm_shared::bigint::BigInt;
 use std::env;
-use cid::Cid;
+use std::collections::hash_map::HashMap;
 
 const WASM_COMPILED_PATH: &str =
     "../fil-fns-actor.wasm";
@@ -17,7 +18,7 @@ const WASM_COMPILED_PATH: &str =
 #[derive(Serialize_tuple, Deserialize_tuple, Clone, Debug, Default)]
 pub struct State {
     pub count: u64,
-    pub name_register: Cid,
+    pub name_register: HashMap<String,u64>,
 }
 
 fn main() {
@@ -39,7 +40,7 @@ fn main() {
     .unwrap();
     let wasm_bin = std::fs::read(wasm_path).expect("Unable to read file");
 
-    let actor_state = State { count: 0, name_register: Cid::default() };
+    let actor_state = State { count: 0, name_register: HashMap::new() };
     let state_cid = tester.set_state(&actor_state).unwrap();
 
     // Set actor
@@ -57,11 +58,14 @@ fn main() {
     tester.instantiate_machine().unwrap();
 
     println!("Calling `register`");
+    let params = RawBytes::new(hex::decode("816A7A6F6E6461782E66696C").unwrap());
+
     let message = Message {
         from: sender[0].1,
         to: actor_address,
         gas_limit: 1000000000,
         method_num: 2,
+        params,
         ..Message::default()
     };
 
