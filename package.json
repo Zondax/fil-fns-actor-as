@@ -7,8 +7,8 @@
     "asbuild": "asc assembly/index.ts --target release --use abort= --transform @zondax/fvm-as-bindgen"
   },
   "dependencies": {
-    "@zondax/assemblyscript-cbor": "^0.3.1",
-    "@zondax/fvm-as-sdk": "^0.4.0"
+    "@zondax/assemblyscript-cbor": "^0.5.1",
+    "@zondax/fvm-as-sdk": "^0.4.2"
   },
   "homepage": "https://github.com/Zondax/fil-fns-actror-as#readme",
   "repository": {
