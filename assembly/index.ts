@@ -57,7 +57,7 @@ function transfer(rawParams: ParamsRawResult): void {
 
   const owner = state.nameRegister.get(params.name)
 
-  /*if (callerAddr != owner) {
+  if (callerAddr != owner) {
     genericAbort(USR_ILLEGAL_ARGUMENT, `you are not the owner of "${params.name}". Owner is ${owner} `)
   }
 
@@ -65,7 +65,7 @@ function transfer(rawParams: ParamsRawResult): void {
   const newOwner = resolve_address(params.addr)
 
   state.nameRegister.set(params.name, newOwner)
-  state.save()*/
+  state.save()
 
   return
 }
