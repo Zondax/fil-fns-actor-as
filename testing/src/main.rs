@@ -57,6 +57,8 @@ fn main() {
     // Instantiate machine
     tester.instantiate_machine().unwrap();
 
+    let executor = tester.executor.as_mut().unwrap();
+
     println!("Calling `register`");
     let params = RawBytes::new(hex::decode("816A7A6F6E6461782E66696C").unwrap());
 
@@ -69,11 +71,33 @@ fn main() {
         ..Message::default()
     };
 
-    let res = tester
-    .executor
-    .unwrap()
-    .execute_message(message, ApplyKind::Explicit, 100)
-    .unwrap();
+    let res = executor
+        .execute_message(message, ApplyKind::Explicit, 100)
+        .unwrap();
+
+    dbg!(&res);
+
+    assert_eq!(res.msg_receipt.exit_code.value(), 0);
+
+    println!("Calling `transfer`");
+    
+    // Cannot do two call in a row
+    
+    let params = RawBytes::new(hex::decode("826A7A6F6E6461782E66696C55011EDA43D05CA6D7D637E7065EF6B8C5DB89E5FB0C").unwrap());
+
+    let message = Message {
+        from: sender[0].1,
+        to: actor_address,
+        gas_limit: 1000000000,
+        method_num: 3,
+        sequence: 1,
+        params,
+        ..Message::default()
+    };
+
+    let res = executor
+        .execute_message(message, ApplyKind::Explicit, 100)
+        .unwrap();
 
     dbg!(&res);
 

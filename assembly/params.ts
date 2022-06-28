@@ -56,8 +56,8 @@ export class TransferParams {
         const name = (nameValue as Str).valueOf()
 
         const addressValue = paramsArray[1]
-        if (!nameValue.isBytes) {
-            genericAbort(USR_ILLEGAL_ARGUMENT, "expected name to be bytes")
+        if (!addressValue.isBytes) {
+            genericAbort(USR_ILLEGAL_ARGUMENT, "expected addr to be bytes")
         }
 
         const addr: Uint8Array = (addressValue as Bytes).valueOf()

@@ -45,6 +45,16 @@ function transfer(rawParams: ParamsRawResult): void {
   const callerAddr = caller()
   const state = State.load()
 
+  if (state.count == 0) {
+    genericAbort(USR_ILLEGAL_ARGUMENT, `0 name register`)
+    return
+  }
+
+  if (!state.nameRegister.has(params.name)) {
+    genericAbort(USR_ILLEGAL_ARGUMENT, `'${params.name}' hasn't been registered yet`)
+    return
+  }
+
   const owner = state.nameRegister.get(params.name)
 
   if (callerAddr != owner) {

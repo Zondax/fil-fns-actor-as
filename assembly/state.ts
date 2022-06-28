@@ -40,15 +40,15 @@ export class State extends BaseState {
         let nameRegister:Map<String, u64> = new Map<String, u64>()
         if(rawState.isArr){
             // Here we cast as object as we know that is what we saved before
-            const state = rawState as Arr
+            const state = (rawState as Arr).valueOf()
 
             // Get counter
-            const counterValue = state.pop()
+            const counterValue = state[0] as Value
             if(counterValue.isInteger)
                 counter = (counterValue as Integer).valueOf()
 
             // Get name register
-            const nameRegisterValue = state.pop()
+            const nameRegisterValue = state[1] as Value
             if(nameRegisterValue.isObj) {
                 let tmp:Map<String, Value> = new Map<String, Value>()
                 tmp = (nameRegisterValue as Obj).valueOf()
