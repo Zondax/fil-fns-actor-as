@@ -1,0 +1,37 @@
+name: "Tests"
+
+on:
+  push:
+
+
+jobs:
+  test:
+    name: "Test FNS actor"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.0'
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+      - name: Install yarn
+        run: npm install -g yarn
+      - name: Set npmrc
+        run: |
+          yarn config set @zondax:registry https://verdaccio.zondax.net/
+          npm config set //verdaccio.zondax.net/:_authToken "$VERDACCIO_TOKEN"
+          npm config set //verdaccio.zondax.net/:always-auth true
+        env:
+          VERDACCIO_TOKEN: ${{ secrets.VERDACCIO_READ_TOKEN }}
+      - name: Install deps
+        run: make deps
+      - name: Build WASM file
+        run: make build
+      - name: Test WASM file
+        run: make test
