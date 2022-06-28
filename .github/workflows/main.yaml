@@ -72,3 +72,26 @@ jobs:
           message: |
             Size difference : ${{env.delta_size}} bytes
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  test:
+    name: "Test FNS actor"
+    runs-on: ubuntu-latest
+    needs: ["build"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly-2022-03-31
+          override: true
+      - uses: actions/download-artifact@v3
+        with:
+          name: fil-fns-actor-previous
+          path: ./fil-fns-actor
+      - name: Test WASM file
+        run: |
+          mv fil-fns-actor/fil-fns-actor.wasm .
+          rustup target add wasm32-unknown-unknown
+          make test
