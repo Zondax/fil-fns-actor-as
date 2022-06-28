@@ -34,4 +34,6 @@ jobs:
       - name: Build WASM file
         run: make build
       - name: Test WASM file
-        run: make test
+        run: |
+          rustup target add wasm32-unknown-unknown
+          make test
