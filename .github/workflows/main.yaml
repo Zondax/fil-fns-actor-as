@@ -84,7 +84,7 @@ jobs:
       - name: Install latest stable
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable
+          toolchain: nightly-2022-03-31
           override: true
       - uses: actions/download-artifact@v3
         with:
