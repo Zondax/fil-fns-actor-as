@@ -4,9 +4,9 @@ deps:
 
 build:
 	yarn asbuild
-	wizer build/release.wasm -f init -o fil-fns-actor.wasm
+	wizer build/release.wasm -f init -o build/fil-fns-actor.wasm
 
 test:
-	cd testing && cargo r
+	cd tests/local-vm && cargo r
 
 .PHONY: deps build test
