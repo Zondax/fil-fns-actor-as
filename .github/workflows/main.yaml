@@ -36,7 +36,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: fil-fns-actor-previous
-          path: ./build
+          path: ./build/fil-fns-actor.wasm
 
   diff:
     name: "Check diff"
