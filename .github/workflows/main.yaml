@@ -36,7 +36,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: fil-fns-actor-previous
-          path: ./build/fil-fns-actor.wasm
+          path: ./build
 
   diff:
     name: "Check diff"
@@ -89,7 +89,6 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: fil-fns-actor-previous
-          path: ./build/fil-fns-actor.wasm
       - name: Test WASM file
         run: |
           rustup target add wasm32-unknown-unknown
