@@ -12,7 +12,7 @@ use std::env;
 use std::collections::hash_map::HashMap;
 
 const WASM_COMPILED_PATH: &str =
-    "../build/fil-fns-actor.wasm";
+    "../../build/fil-fns-actor.wasm";
 
 /// The state object.
 #[derive(Serialize_tuple, Deserialize_tuple, Clone, Debug, Default)]
