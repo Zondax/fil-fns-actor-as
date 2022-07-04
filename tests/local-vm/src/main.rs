@@ -12,7 +12,7 @@ use std::env;
 use std::collections::hash_map::HashMap;
 
 const WASM_COMPILED_PATH: &str =
-    "../fil-fns-actor.wasm";
+    "../../build/fil-fns-actor.wasm";
 
 /// The state object.
 #[derive(Serialize_tuple, Deserialize_tuple, Clone, Debug, Default)]
@@ -80,9 +80,9 @@ fn main() {
     assert_eq!(res.msg_receipt.exit_code.value(), 0);
 
     println!("Calling `transfer`");
-    
+
     // Cannot do two call in a row
-    
+
     let params = RawBytes::new(hex::decode("826A7A6F6E6461782E66696C55011EDA43D05CA6D7D637E7065EF6B8C5DB89E5FB0C").unwrap());
 
     let message = Message {
