@@ -89,7 +89,9 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: fil-fns-actor-previous
+          path: ./fil-fns-actor
       - name: Test WASM file
         run: |
+          mv fil-fns-actor/fil-fns-actor.wasm build/fil-fns-actor.wasm
           rustup target add wasm32-unknown-unknown
           make test
