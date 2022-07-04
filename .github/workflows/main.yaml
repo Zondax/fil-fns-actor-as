@@ -92,6 +92,7 @@ jobs:
           path: ./fil-fns-actor
       - name: Test WASM file
         run: |
+          mkdir -p build
           mv fil-fns-actor/fil-fns-actor.wasm build/fil-fns-actor.wasm
           rustup target add wasm32-unknown-unknown
           make test
