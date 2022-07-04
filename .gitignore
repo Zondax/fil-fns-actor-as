@@ -1,4 +1,7 @@
 node_modules
-testing/target
-fil-fns-actor.wasm
+tests/local-vm/target
 build
+.yalc
+.idea
+*.out
+yalc.lock
