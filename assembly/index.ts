@@ -1,5 +1,5 @@
 // @chainfile-index
-import {caller, genericAbort, resolve_address} from "@zondax/fvm-as-sdk/assembly/wrappers"
+import {caller, genericAbort, resolveAddress, log} from "@zondax/fvm-as-sdk/assembly/wrappers"
 import {USR_ILLEGAL_ARGUMENT} from "@zondax/fvm-as-sdk/assembly/env"
 import {State} from "./state"
 
@@ -61,7 +61,7 @@ function transfer(name: string, addr: Uint8Array): void {
   }
 
   // resolve new owner address
-  const newOwner = resolve_address(addr)
+  const newOwner = resolveAddress(addr)
 
   state.nameRegister.set(name, newOwner)
   state.save()
