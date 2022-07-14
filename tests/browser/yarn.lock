@@ -268,10 +268,10 @@
     "@typescript-eslint/types" "5.29.0"
     eslint-visitor-keys "^3.3.0"
 
-"@zondax/filecoin-signing-tools@^1.0.1":
-  version "1.0.1"
-  resolved "https://verdaccio.zondax.net/@zondax%2ffilecoin-signing-tools/-/filecoin-signing-tools-1.0.1.tgz#f72b53adc53d9db38bf7beaa6cd0c14499e90159"
-  integrity sha512-Z+kVjR0i7TFAxosDdOUpD/BGcfwqFiO5ohp4AM5+72XwUmr1OMb3hfyCWfRaRTs7zwr4M5O/wf4ZVPaoTjZyuQ==
+"@zondax/filecoin-signing-tools@^1.0.4":
+  version "1.0.4"
+  resolved "https://verdaccio.zondax.net/@zondax%2ffilecoin-signing-tools/-/filecoin-signing-tools-1.0.4.tgz#6f3fb2ad5502951b3e147585d40a8dc29ff2cb77"
+  integrity sha512-t4F3H+t87xw6uyg2R0OIdisg8pUf9dx5Ka/RM0GEGMrGSSFYUpxbgmrlqvw6zfxCDdHj86hBxwis/JnxJA2lXQ==
   dependencies:
     "@ipld/dag-cbor" "^7.0.0"
     axios "^0.24.0"

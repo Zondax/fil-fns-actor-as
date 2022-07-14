@@ -1,8 +1,8 @@
 // @ts-ignore
 import {
-  FilecoinRPC,
   transactionSign,
 } from "@zondax/filecoin-signing-tools/js";
+import FilecoinRPC from "@zondax/filecoin-signing-tools/rpc";
 import * as cbor from "@ipld/dag-cbor";
 
 const URL = process.env["NODE_URL"];
