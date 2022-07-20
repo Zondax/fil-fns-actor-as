@@ -1,4 +1,3 @@
-// @chainfile-index
 import {caller, genericAbort, resolveAddress} from "@zondax/fvm-as-sdk/assembly/wrappers"
 import {USR_ILLEGAL_ARGUMENT} from "@zondax/fvm-as-sdk/assembly/env"
 import {State} from "./state"
