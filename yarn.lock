@@ -7,10 +7,10 @@
   resolved "https://verdaccio.zondax.net/@zondax%2fassemblyscript-cbor/-/assemblyscript-cbor-0.5.1.tgz#9c24068c510b665f32bd107af9f748680d8d419f"
   integrity sha512-k0iuZCMcEOk0oildpPTHL1ioudryO8rr6FDTu24it63QLc8jwKIvCIoOkwCYG8ChZRbJNiU3N5C4Pq1aaQcpFA==
 
-"@zondax/fvm-as-bindgen@^0.9.1":
-  version "0.9.1"
-  resolved "https://verdaccio.zondax.net/@zondax%2ffvm-as-bindgen/-/fvm-as-bindgen-0.9.1.tgz#adb995d5e7913c6b8e98ce2cfeb4b5edc17c2cf0"
-  integrity sha512-tMkOV0Z5m5zWy1tE6vGvgjULob7rLTf+ckRSnIjpS+s/WNqH18+njUHDsJAa0yxSfVTLFQb0JSzUU7LxEHSTug==
+"@zondax/fvm-as-bindgen@^0.9.2":
+  version "0.9.2"
+  resolved "https://verdaccio.zondax.net/@zondax%2ffvm-as-bindgen/-/fvm-as-bindgen-0.9.2.tgz#0b33a84812938d1f6a4ac7e82e84fcaedf2efa65"
+  integrity sha512-EzQ+/iOZCHqkHTdvJqTDp8OCXkHhjg4aZ2QVnzeXStoikn9L2Q1vq2Sjcacli0AKkUVMuCq5xDNHsiukOGuIvg==
   dependencies:
     assemblyscript "^0.20.11"
 
