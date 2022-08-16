@@ -1,6 +1,18 @@
-# FNS assemblyscript actor
+# FNS Assemblyscript Actor for FVM
 
-This project is an example of a Filecoin Naming System actor written in assemblyscript.
+This project is an example of a Filecoin Naming System actor written in AssemblyScript.
+
+This is the another smart contract you should check in order to learn how to create your own one. It implements:
+- Save maps and integers to storage
+- Load that data from storage
+- Create a constructor
+- Export methods with parameters and return values
+
+In particular, this implements all the methods required to have a working name service, like ENS.
+So this allows you to have your on name service running on FVM. Awesome, right?
+
+This smart contract was built using the FVM SDK for AssemblyScript. Please, go to the [project](https://github.com/Zondax/fvm-as-sdk) in order to know more about it.
+
 
 ## Development
 

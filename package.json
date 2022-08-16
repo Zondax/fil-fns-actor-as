@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@zondax/assemblyscript-cbor": "^0.5.1",
-    "@zondax/fvm-as-sdk": "^0.6.0"
+    "@zondax/fvm-as-sdk": "^0.6.3"
   },
   "homepage": "https://github.com/Zondax/fil-fns-actror-as#readme",
   "repository": {
@@ -17,7 +17,7 @@
   },
   "private": true,
   "devDependencies": {
-    "@zondax/fvm-as-bindgen": "^0.9.2",
+    "@zondax/fvm-as-bindgen": "^0.13.0",
     "assemblyscript": "^0.20.11"
   }
 }
