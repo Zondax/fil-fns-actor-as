@@ -6,3 +6,4 @@ build
 *.out
 yalc.lock
 .env
+yarn.lock
